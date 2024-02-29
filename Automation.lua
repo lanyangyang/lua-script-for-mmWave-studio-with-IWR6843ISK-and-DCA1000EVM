@@ -1,12 +1,4 @@
----------------------------------- STARTUP -------------------------------------
------------------------- DO NOT MODIFY THIS SECTION ----------------------------
--- -- local RSTD = RSTD
--- -- -- mmwavestudio installation path
--- RSTD_PATH = RSTD.GetRstdPath()
--- --
--- -- -- Declare the loading function
--- dofile(RSTD_PATH .. "\\Scripts\\Startup.lua")
--- --
+
 -- ------------------------------ CONFIGURATIONS ----------------------------------
 -- Use "DCA1000" for working with DCA1000
 capture_device  = "DCA1000"
@@ -21,6 +13,7 @@ uart_com_port   = 8
 -- Timeout in ms
 timeout         = 1000
 
+-- Change to your path
 -- BSS firmware
 bss_path        = "D:\\RD\\mmwave_studio_02_01_01_00\\rf_eval_firmware\\radarss\\xwr68xx_radarss.bin"
 -- MSS firmware
@@ -30,54 +23,54 @@ adc_data_path   = "D:\\RD\\mmwave_studio_02_01_01_00\\mmWaveStudio\\PostProc\\te
 
 ------------------------- Connect Tab settings ---------------------------------
 -- Select Capture device
--- ret=ar1.SelectCaptureDevice(capture_device)
--- if(ret~=0)
--- then
---     print("******* Wrong Capture device *******")
---     return
--- end
+ ret=ar1.SelectCaptureDevice(capture_device)
+ if(ret~=0)
+ then
+     print("******* Wrong Capture device *******")
+     return
+end
 
 -- SOP mode
--- ret=ar1.SOPControl(SOP_mode)
--- RSTD.Sleep(timeout)
--- if(ret~=0)
--- then
---     print("******* SOP FAIL *******")
---     return
--- end
+ret=ar1.SOPControl(SOP_mode)
+RSTD.Sleep(timeout)
+if(ret~=0)
+then
+  print("******* SOP FAIL *******")
+  return
+end
 --
 -- -- RS232 Connect
--- ret=ar1.Connect(uart_com_port,baudrate,timeout)
--- RSTD.Sleep(timeout)
--- if(ret~=0)
--- then
---     print("******* Connect FAIL *******")
---     return
--- end
+ret=ar1.Connect(uart_com_port,baudrate,timeout)
+RSTD.Sleep(timeout)
+if(ret~=0)
+then
+  print("******* Connect FAIL *******")
+  return
+end
 
 -- Download BSS Firmware
--- ret=ar1.DownloadBSSFw(bss_path)
--- RSTD.Sleep(2*timeout)
--- if(ret~=0)
--- then
---     print("******* BSS Load FAIL *******")
---     return
--- end
+ret=ar1.DownloadBSSFw(bss_path)
+RSTD.Sleep(2*timeout)
+if(ret~=0)
+then
+    print("******* BSS Load FAIL *******")
+    return
+end
 --
 -- -- Download MSS Firmware
--- ret=ar1.DownloadMSSFw(mss_path)
--- RSTD.Sleep(2*timeout)
--- if(ret~=0)
--- then
---     print("******* MSS Load FAIL *******")
---     return
--- end
+ret=ar1.DownloadMSSFw(mss_path)
+RSTD.Sleep(2*timeout)
+if(ret~=0)
+then
+    print("******* MSS Load FAIL *******")
+    return
+end
 --
 -- -- SPI Connect
--- ar1.PowerOn(1, 1000, 0, 0)
+ar1.PowerOn(1, 1000, 0, 0)
 --
 -- -- RF Power UP
--- ar1.RfEnable()
+ar1.RfEnable()
 
 ------------------------- Other Device Configuration ---------------------------
 
